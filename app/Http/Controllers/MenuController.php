@@ -111,6 +111,7 @@ class MenuController extends Controller
             $menu = Menu::findorfail($id);
             $menu->nama_menu = $request->post('nama_menu');
             $menu->url = $request->post('url');
+            $menu->icon = $request->post('icon');
             $menu->parent_id = $request->post('parent_id');
             $menu->update();
             toastr()->success('Menu berhasil disimpan');
