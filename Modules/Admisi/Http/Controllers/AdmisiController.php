@@ -9,6 +9,13 @@ use Illuminate\Http\Response;
 
 class AdmisiController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admisi_dashboard')->only('index', 'show');
+        $this->middleware('permission:create_admisi_dashboard')->only('create', 'store');
+        $this->middleware('permission:update_admisi_dashboard')->only('edit', 'update');
+        $this->middleware('permission:delete_admisi_dashboard')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +35,7 @@ class AdmisiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         //
     }
@@ -52,7 +59,7 @@ class AdmisiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         //
     }

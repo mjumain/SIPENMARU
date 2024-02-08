@@ -6,15 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Admisi\Entities\Prodi;
 
 class BiodataController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admisi_biodata')->only('index', 'show');
+        $this->middleware('permission:create_admisi_biodata')->only('create', 'store');
+        $this->middleware('permission:update_admisi_biodata')->only('edit', 'update');
+        $this->middleware('permission:delete_admisi_biodata')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admisi::biodata.index');
+        $prodis=Prodi::all();
+        // dd($prodis);
+        return view('admisi::biodata.index',compact('prodis'));
     }
 
     /**
