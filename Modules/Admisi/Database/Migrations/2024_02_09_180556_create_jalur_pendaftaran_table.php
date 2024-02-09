@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jalur_pendaftaran', function (Blueprint $table) {
+        Schema::create('jalur_pendaftarans', function (Blueprint $table) {
             $table->id();
             $table->string('jalur_pendaftaran');
             $table->enum('status',['y','t'])->default('y');           

@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class DBBackupController extends Controller
 {
-    public function DBDataBackup(Request $request)  // db data backup only
+    public function DBBackup(Request $request)  // db data backup only
     {
         $dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/db/backups/';
         File::ensureDirectoryExists($dir);
