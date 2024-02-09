@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biaya_kuliah', function (Blueprint $table) {
+        Schema::create('prodi_has_kelas_jalur_pendaftaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('prodi_id');
             $table->unsignedBigInteger('kelas_id');
-            $table->string('biaya');
+            $table->unsignedBigInteger('jalur_pendaftaran_id');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biaya_kuliah');
+        Schema::dropIfExists('prodi_has_kelas_jalur_pendaftaran');
     }
 };

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biaya_kuliah', function (Blueprint $table) {
+        Schema::create('jalur_pendaftaran', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('prodi_id');
-            $table->unsignedBigInteger('kelas_id');
-            $table->string('biaya');
+            $table->string('jalur_pendaftaran');
+            $table->enum('status',['y','t'])->default('y');           
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biaya_kuliah');
+        Schema::dropIfExists('jalur_pendaftaran');
     }
 };
