@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Modules\Admisi\Http\Controllers\AdmisiController;
 use Modules\Admisi\Http\Controllers\BiodataController;
+use Modules\Admisi\Http\Controllers\ProdiHasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,10 @@ use Modules\Admisi\Http\Controllers\BiodataController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group([], function () {
     Route::resource('admisi-dashboard', AdmisiController::class);
     Route::resource('admisi-biodata', BiodataController::class);
+    Route::get('prodi-kelas/{kode_prodi}', [ProdiHasController::class, 'getKelas']);
+    Route::get('prodi-jalur/{kode_prodi}/{kelas_id}', [ProdiHasController::class, 'getJalur']);
 });

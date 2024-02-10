@@ -22,15 +22,35 @@
                             <div class="card-body">
                                 <label class="form-label">Program Studi Pilihan</label>
                                 <select name="kode_prodi" id="kode_prodi"
-                                    class="form-control mb-2 @error('npsn') is-invalid @enderror">
+                                    class="form-control mb-2 @error('kode_prodi') is-invalid @enderror">
                                     <option selected disabled value>== PILIH PROGRAM STUDI ==</option>
                                     @foreach ($prodis as $item)
-                                        <option value="{{ $item->kode_studi }}">
+                                        <option value="{{ $item->kode_prodi }}">
                                             {{ $item->nama_prodi }}
                                         </option>
                                     @endforeach
                                 </select>
                                 @error('kode_prodi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <label class="form-label">Kelas Perkuliahan</label>
+                                <select name="kelas_id" id="kelas_id"
+                                    class="form-control mb-2  @error('kelas_id') is-invalid @enderror">
+                                    <option selected disabled value>== PILIH KELAS PERKULIAHAN ==</option>
+                                </select>
+                                @error('kelas_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <label class="form-label">Jalur Pendaftaran</label>
+                                <select name="jalur_id" id="jalur_id"
+                                    class="form-control mb-2  @error('kelas_id') is-invalid @enderror">
+                                    <option selected disabled value>== PILIH JALUR PENDAFTARAN ==</option>
+                                </select>
+                                @error('jalur_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -161,8 +181,8 @@
     </div>
 @endsection
 @push('js')
-    <script src="{{ asset('') }}assets/plugins/select2/js/select2.min.js"></script>
-    <script type="text/javascript">
+    {{-- <script src="{{ asset('') }}assets/plugins/select2/js/select2.min.js"></script> --}}
+    {{-- <script type="text/javascript">
         var path = "{{ url('datasekolah') }}";
 
         $('#npsn').select2({
@@ -211,6 +231,66 @@
                     };
                 },
                 cache: true
+            }
+        });
+    </script> --}}
+    <script>
+        $('#kode_prodi').change(function() {
+            var kode_prodi = $(this).val();
+            if (kode_prodi) {
+                $.ajax({
+                    type: "GET",
+                    url: "/prodi-kelas/" + kode_prodi,
+                    dataType: 'JSON',
+                    success: function(res) {
+                        if (res) {
+                            $("#kelas_id").empty();
+                            $("#jalur_id").empty();
+                            $("#jalur_id").append(
+                                ' <option selected disabled value>== PILIH JALUR PENDAFTARAN ==</option>'
+                            );
+                            $("#kelas_id").append(
+                                ' <option selected disabled value>== PILIH KELAS PERKULIAHAN ==</option>'
+                            );
+                            $.each(res, function(id, kelas) {
+                                $("#kelas_id").append('<option value="' + kelas.id + '">' +
+                                    kelas.kelas +
+                                    '</option>');
+                            });
+                        } else {
+                            $("#kelas_id").empty();
+                            $("#jalur_id").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#kelas_id").empty();
+                $("#jalur_id").empty();
+            }
+        });
+        $('#kelas_id').change(function() {
+            var kode_prodi = $("#kode_prodi").val();
+            var kelas_id = $(this).val();
+            if (kode_prodi && kelas_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/prodi-jalur/" + kode_prodi + '/' + kelas_id,
+                    dataType: 'JSON',
+                    success: function(res) {
+                        if (res) {
+                            console.log(res);
+                            $.each(res, function(id, jalur) {
+                                $("#jalur_id").append('<option value="' + jalur.id + '">' +
+                                    jalur.jalur +
+                                    '</option>');
+                            });
+                        } else {
+                            $("#jalur_id").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#jalur_id").empty();
             }
         });
     </script>
