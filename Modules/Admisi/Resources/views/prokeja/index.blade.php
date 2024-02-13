@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-primary card-outline">
+                    <div class="card card-info card-outline">
                         <div class="card-body">
                             <form action="{{ route('admin-admisi-prokeja.store') }}" method="post">
                                 @csrf
@@ -69,7 +69,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-primary card-outline">
+                    <div class="card card-info card-outline">
                         <div class="card-header">
                             <h5 class="card-title m-0"></h5>
                             <div class="card-tools">

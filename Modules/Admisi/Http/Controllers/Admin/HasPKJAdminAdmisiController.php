@@ -63,7 +63,8 @@ class HasPKJAdminAdmisiController extends Controller
             }
             return redirect()->route('admin-admisi-prokeja.index');
         } catch (\Throwable $th) {
-            //throw $th;
+            toastr()->warning('Ada masalah di server');
+            return redirect()->route('admin-admisi-prokeja.index');
         }
     }
 
