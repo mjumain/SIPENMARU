@@ -9,7 +9,9 @@ use Modules\Admisi\Http\Controllers\Admin\KelasAdmisiController;
 use Modules\Admisi\Http\Controllers\Admin\ProdiAdmisiController;
 use Modules\Admisi\Http\Controllers\AdmisiController;
 use Modules\Admisi\Http\Controllers\BiodataController;
+use Modules\Admisi\Http\Controllers\PembayaranSPPController;
 use Modules\Admisi\Http\Controllers\ProdiHasController;
+use Modules\Admisi\Http\Controllers\TesOnlineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,9 @@ use Modules\Admisi\Http\Controllers\ProdiHasController;
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('admisi-dashboard', AdmisiController::class);
     Route::resource('admisi-biodata', BiodataController::class);
+    Route::resource('admisi-tes-online', TesOnlineController::class);
+    Route::resource('admisi-pembayaran-spp', PembayaranSPPController::class);
+
     Route::get('prodi-kelas/{kode_prodi}/{jalur_id}', [ProdiHasController::class, 'getKelas']);
     Route::get('prodi-jalur/{kode_prodi}', [ProdiHasController::class, 'getJalur']);
     Route::get('get-npsn', [ProdiHasController::class, 'getNpsn']);
