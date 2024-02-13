@@ -20,6 +20,7 @@ use Modules\Admisi\Http\Controllers\ProdiHasController;
 Route::group([], function () {
     Route::resource('admisi-dashboard', AdmisiController::class);
     Route::resource('admisi-biodata', BiodataController::class);
-    Route::get('prodi-kelas/{kode_prodi}', [ProdiHasController::class, 'getKelas']);
-    Route::get('prodi-jalur/{kode_prodi}/{kelas_id}', [ProdiHasController::class, 'getJalur']);
+    Route::get('prodi-kelas/{kode_prodi}/{jalur_id}', [ProdiHasController::class, 'getKelas']);
+    Route::get('prodi-jalur/{kode_prodi}', [ProdiHasController::class, 'getJalur']);
+    Route::get('get-npsn', [ProdiHasController::class, 'getNpsn']);
 });
