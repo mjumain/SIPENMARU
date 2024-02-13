@@ -13,9 +13,9 @@ class DBBackupController extends Controller
 {
     public function DBBackup(Request $request)  // db data backup only
     {
-        $dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/db/backups/';
+        $dir = storage_path() . "/app/backupdb/";
         File::ensureDirectoryExists($dir);
-        $file_name = 'db_backup_' . Str::slug(now(), '_') . '.sql';
+        $file_name = 'db_backup_' . DB::getDatabaseName() . '_' . Str::slug(now(), '_') . '.sql';
         $file_full_url = $dir . $file_name;
         $file = fopen($file_full_url, 'w');
 
