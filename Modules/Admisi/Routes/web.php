@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Modules\Admisi\Http\Controllers\Admin\DashboardAdminAdmisiController;
+use Modules\Admisi\Http\Controllers\Admin\HasPKJAdminAdmisiController;
+use Modules\Admisi\Http\Controllers\Admin\JalurPenerimaanAdmisiController;
+use Modules\Admisi\Http\Controllers\Admin\KelasAdmisiController;
+use Modules\Admisi\Http\Controllers\Admin\ProdiAdmisiController;
 use Modules\Admisi\Http\Controllers\AdmisiController;
 use Modules\Admisi\Http\Controllers\BiodataController;
 use Modules\Admisi\Http\Controllers\ProdiHasController;
@@ -17,10 +22,17 @@ use Modules\Admisi\Http\Controllers\ProdiHasController;
 |
 */
 
-Route::group([], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('admisi-dashboard', AdmisiController::class);
     Route::resource('admisi-biodata', BiodataController::class);
     Route::get('prodi-kelas/{kode_prodi}/{jalur_id}', [ProdiHasController::class, 'getKelas']);
     Route::get('prodi-jalur/{kode_prodi}', [ProdiHasController::class, 'getJalur']);
     Route::get('get-npsn', [ProdiHasController::class, 'getNpsn']);
+
+
+    Route::resource('admin-admisi-dashboard', DashboardAdminAdmisiController::class);
+    Route::resource('admin-admisi-jalur-penerimaan', JalurPenerimaanAdmisiController::class);
+    Route::resource('admin-admisi-kelas', KelasAdmisiController::class);
+    Route::resource('admin-admisi-prodi', ProdiAdmisiController::class);
+    Route::resource('admin-admisi-prokeja', HasPKJAdminAdmisiController::class);
 });

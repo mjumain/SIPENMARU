@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Modules\Admisi\Entities\Admin\ProdiAdmisi;
 use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\Prodi;
 
@@ -26,7 +27,7 @@ class BiodataController extends Controller
      */
     public function index()
     {
-        $prodis = Prodi::all();
+        $prodis = ProdiAdmisi::all();
         return view('admisi::biodata.index', compact('prodis'));
     }
 
