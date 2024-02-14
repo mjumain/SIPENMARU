@@ -121,22 +121,11 @@
                     @include('layouts.sidebar')
                 </nav>
             </div>
-
-            {{-- <div class="sidebar-custom">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="btn btn-info btn-block" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                this.closest('form').submit();"><i
-                            class="fas fa-sign-out-alt"></i> <span>Keluar</span></a>
-                </form>
-            </div> --}}
         </aside>
 
         <div class="content-wrapper">
             @yield('content')
         </div>
-
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0

@@ -213,6 +213,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'MenuHelper'=> \App\Helpers\MenuHelper::class,
+        'DataHelper'=> \App\Helpers\DataHelper::class,
         'Module' => Nwidart\Modules\Facades\Module::class,
     ])->toArray(),
 
