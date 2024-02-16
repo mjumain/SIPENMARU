@@ -109,11 +109,12 @@ class MasterSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
         ]);
 
-        Role::create(['name' => 'agen-admisi']);
-        Role::create(['name' => 'user-admisi']);
-        Role::create(['name' => 'admin-admisi']);
         $superadmin = Role::create(['name' => 'superadmin']);
         $superadmin->givePermissionTo(Permission::all());
         User::firstWhere('email', 'superadmin@gmail.com')->assignRole('superadmin');
+
+        Role::create(['name' => 'agen-admisi']);
+        Role::create(['name' => 'user-admisi']);
+        Role::create(['name' => 'admin-admisi']);
     }
 }
