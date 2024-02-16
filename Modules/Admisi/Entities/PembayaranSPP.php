@@ -13,10 +13,8 @@ class PembayaranSPP extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
-    
-    protected static function newFactory(): PembayaranSPPFactory
-    {
-        //return PembayaranSPPFactory::new();
-    }
+    protected $guarded = [];
+    protected $connection = 'h2h';
+    protected $table = 'tabel_tagihan_testing';
+    public $timestamps = false;
 }

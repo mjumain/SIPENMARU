@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Admisi\Database\Seeders\AdmisiDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,5 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(MasterSeeder::class);
+        $this->call(MenuUserAdmisiSeeder::class);
+        $this->call(MenuAdminAdmisiSeeder::class);
+        $this->call(AdmisiDatabaseSeeder::class);
     }
 }

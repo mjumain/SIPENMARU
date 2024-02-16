@@ -15,6 +15,13 @@ use Illuminate\Support\Str;
 
 class TesOnlineController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admisi_tes_online')->only('index', 'show');
+        $this->middleware('permission:create_admisi_tes_online')->only('create', 'store');
+        $this->middleware('permission:update_admisi_tes_online')->only('edit', 'update');
+        $this->middleware('permission:delete_admisi_tes_online')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

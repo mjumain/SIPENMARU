@@ -8,6 +8,13 @@ use Illuminate\Routing\Controller;
 
 class DashboardAdminAdmisiController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admin_admisi_dashboard')->only('index', 'show');
+        $this->middleware('permission:create_admin_admisi_dashboard')->only('create', 'store');
+        $this->middleware('permission:update_admin_admisi_dashboard')->only('edit', 'update');
+        $this->middleware('permission:delete_admin_admisi_dashboard')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable

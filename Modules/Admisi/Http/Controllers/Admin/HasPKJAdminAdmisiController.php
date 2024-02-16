@@ -10,6 +10,13 @@ use Modules\Admisi\Entities\Admin\HasPKJAdminAdmisi;
 
 class HasPKJAdminAdmisiController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admin_admisi_pkj')->only('index', 'show');
+        $this->middleware('permission:create_admin_admisi_pkj')->only('create', 'store');
+        $this->middleware('permission:update_admin_admisi_pkj')->only('edit', 'update');
+        $this->middleware('permission:delete_admin_admisi_pkj')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable

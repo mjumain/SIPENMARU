@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ProdiAdmisi extends Model
 {
     use HasFactory;
-
-    protected $fillable = [];
-    protected $table = 'prodis';
+    protected $guarded = [];
+    public $table = 'prodis';
+    public $timestamps = false;
 }

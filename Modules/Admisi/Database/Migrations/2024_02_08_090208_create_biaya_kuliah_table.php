@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('biaya_kuliahs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('prodi_id');
-            $table->unsignedBigInteger('kelas_id');
+            $table->unsignedBigInteger('jalur_pendaftaran_id');
             $table->string('biaya');
+            $table->string('potongan');
             $table->timestamps();
         });
     }
