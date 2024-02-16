@@ -23,7 +23,7 @@ class HasPKJAdminAdmisiController extends Controller
      */
     public function index()
     {
-        $prodis = DB::table('prodis')->get();
+        $prodis = DB::table('prodis')->orderBy('nama_prodi','asc')->get();
         $kelass = DB::table('kelas_perkuliahans')->get();
         $jalur_pendaftarans = DB::table('jalur_pendaftarans')->get();
 
