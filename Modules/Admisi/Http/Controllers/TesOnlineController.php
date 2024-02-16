@@ -2,6 +2,7 @@
 
 namespace Modules\Admisi\Http\Controllers;
 
+use App\Helpers\DataHelper;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -27,6 +28,12 @@ class TesOnlineController extends Controller
      */
     public function index()
     {
+        $query = DataHelper::cekBiodata(auth()->user()->id);
+        if (is_null($query)) {
+            toastr()->warning('Silahkan lengkapi dahulu biodata anda');
+            return redirect()->route('admisi-biodata.index');
+        }
+
         $cek_pembayaran_pendaftaran = PembayaranPendaftaran::where('id_user', auth()->user()->id)->first();
         if ($cek_pembayaran_pendaftaran) {
             if (is_null($cek_pembayaran_pendaftaran->status_pembayaran)) {
@@ -36,15 +43,15 @@ class TesOnlineController extends Controller
 
                 $cek_akun_cbt = TesOnline::where('user_name', auth()->user()->email)->first();
                 // dd($cek_akun_cbt);
-                
+
                 if ($cek_akun_cbt) {
                     $hasilcbt = DB::connection('cbt')->table('cbt_tes_soal as a')
-                    ->select(DB::raw("SUM(tessoal_nilai) as nilai"))
-                    ->join('cbt_tes_user as b', 'a.tessoal_tesuser_id', '=', 'b.tesuser_tes_id')
-                    ->join('cbt_user as c', 'b.tesuser_user_id', '=', 'c.user_id')
-                    // ->where('c.user_name', '=', auth()->user()->email)
-                    ->where('c.user_name', '=', '1502172605000001')
-                    ->first();
+                        ->select(DB::raw("SUM(tessoal_nilai) as nilai"))
+                        ->join('cbt_tes_user as b', 'a.tessoal_tesuser_id', '=', 'b.tesuser_tes_id')
+                        ->join('cbt_user as c', 'b.tesuser_user_id', '=', 'c.user_id')
+                        // ->where('c.user_name', '=', auth()->user()->email)
+                        ->where('c.user_name', '=', '1502172605000001')
+                        ->first();
                     // dd($hasilcbt);
                     if (!empty($hasilcbt->nilai)) {
                         if ($hasilcbt->nilai >= 20) {
@@ -66,7 +73,6 @@ class TesOnlineController extends Controller
                         'user_detail' => 'Peserta ODS tanggal',
                     ]);
                     TesOnline::insert($insert);
-
                     return redirect()->to('admisi-tes-online');
                 }
             }
