@@ -45,7 +45,7 @@ class ProdiHasController extends Controller
     {
         $data = [];
         if ($request->filled('q')) {
-            $data = DB::table('npsn_seindonesia')
+            $data = DB::table('sekolah_indonesia')
                 ->where('nama_sekolah', 'LIKE', '%' . $request->get('q') . '%')
                 ->where('npsn', 'LIKE', '%' . $request->get('q') . '%')
                 ->orWhere('nama_sekolah', 'LIKE', '%' . $request->get('q') . '%')

@@ -2,13 +2,13 @@
 
 namespace Modules\Admisi\Http\Controllers;
 
-use App\Helpers\DataHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Modules\Admisi\Entities\Admin\HasPKJAdminAdmisi;
 use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\PembayaranSPP;
+use Psy\Util\Str;
 
 class PembayaranSPPController extends Controller
 {
@@ -41,7 +41,7 @@ class PembayaranSPPController extends Controller
         })
             ->orderby('id', 'asc')
             ->first();
-            
+
         if ($cek_spp) {
             $biodata = Biodata::where('user_id', auth()->user()->id)->first();
             return view('admisi::spp.index', compact('cek_spp', 'biodata'));
@@ -63,8 +63,120 @@ class PembayaranSPPController extends Controller
      */
     public function store(Request $request)
     {
+        // $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
+        // if (is_null($query)) {
+        //     $biodata = DataHelper::cekBiodata(auth()->user()->id);
+        //     if (is_null($biodata)) {
+        //         return redirect()->route('admisi-tes-online.index');
+        //     } else {
+        //         toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
+        //         return redirect()->route('admisi-tes-online.index');
+        //     }
+        // }
         //
-        dd($request->all());
+
+        $has_prodi_kelas_jalur = Biodata::where('user_id', auth()->user()->id)->first();
+        $jalur_pendaftaran_id = HasPKJAdminAdmisi::find($has_prodi_kelas_jalur->has_prodi_kelas_jalur);
+        $kode_prodi = $jalur_pendaftaran_id->prodi_id;
+
+        if ($jalur_pendaftaran_id->jalur_pendaftaran_id == 3) {
+            if ($kode_prodi == '60201') {
+                $nominal = 3860000;
+            } elseif ($kode_prodi == '61201') {
+                $nominal = 3860000;
+            } elseif ($kode_prodi == '57201') {
+                $nominal = 4110000;
+            } elseif ($kode_prodi == '55201') {
+                $nominal = 4110000;
+            } elseif ($kode_prodi == '54251') {
+                $nominal = 4110000;
+            } else {
+                $nominal = 2860000;
+            }
+        } else {
+            if ($kode_prodi == '60201') {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 3860000;
+                } else {
+                    $nominal = 4860000;
+                }
+            } elseif ($kode_prodi == '61201') {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 3860000;
+                } else {
+                    $nominal = 4860000;
+                }
+            } elseif ($kode_prodi == '57201') {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 4110000;
+                } else {
+                    $nominal = 4860000;
+                }
+            } elseif ($kode_prodi == '55201') {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 4110000;
+                } else {
+                    $nominal = 4860000;
+                }
+            } elseif ($kode_prodi == '54251') {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 4110000;
+                } else {
+                    $nominal = 4860000;
+                }
+            } else {
+                if ($jalur_pendaftaran_id->prodi_id == 1) {
+                    $nominal = 2860000;
+                } else {
+                    $nominal = 3860000;
+                }
+            }
+        }
+
+        if ($request->metode_pembayaran == 1) {
+            $bayar = $nominal;
+            $value = "Pembayaran SPP Lunas";
+        } else {
+            $bayar = 1 / 2 * $nominal;
+            $value = "Pembayaran SPP Angsuran Pertama";
+        }
+
+
+        $info[] = [
+            'label_key' => "SPP",
+            'label_value' => $value,
+        ];
+
+        $rincian[] = [
+            'kode_rincian' => 'SPP',
+            'deskripsi' => $value,
+            'nominal' => $bayar,
+        ];
+
+        $total_nominal = $bayar;
+
+        $invoice = 'INV/SPP/' . time() . sprintf("%04s", auth()->user()->id);
+        try {
+            dd($value);
+            // PembayaranSPP::create(
+            //     [
+            //         'id_user'               => auth()->user()->id,
+            //         'nomor_invoice'         => $invoice,
+            //         'nomor_pembayaran'      => date('y') . sprintf("%05s", auth()->user()->id),
+            //         'id_pelanggan'          => date('y') . sprintf("%05s", auth()->user()->id),
+            //         'nama'                  => auth()->user()->name,
+            //         'info'                  => json_encode($info),
+            //         'rincian'               => json_encode($rincian),
+            //         'status_pembayaran'     => NULL,
+            //         'total_nominal'         => $total_nominal,
+            //         'waktu_berlaku'         => now(),
+            //         'waktu_kadaluarsa'      => Carbon::now()->addDays(3)->format('Y-m-d') . ' 23.59.59',
+            //     ]
+            // );
+            return view('admisi::spp.index');
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     /**

@@ -27,7 +27,7 @@ class BiodataController extends Controller
      */
     public function index()
     {
-        $prodis = ProdiAdmisi::all();
+        $prodis = ProdiAdmisi::orderBy('nama_prodi', 'asc')->get();
         return view('admisi::biodata.index', compact('prodis'));
     }
 
