@@ -42,6 +42,7 @@ class PembayaranSPPController extends Controller
             ->orderby('id', 'asc')
             ->first();
 
+
         if ($cek_spp) {
             $biodata = Biodata::where('user_id', auth()->user()->id)->first();
             return view('admisi::spp.index', compact('cek_spp', 'biodata'));
@@ -157,23 +158,24 @@ class PembayaranSPPController extends Controller
 
         $invoice = 'INV/SPP/' . time() . sprintf("%04s", auth()->user()->id);
         try {
-            dd($value);
-            // PembayaranSPP::create(
-            //     [
-            //         'id_user'               => auth()->user()->id,
-            //         'nomor_invoice'         => $invoice,
-            //         'nomor_pembayaran'      => date('y') . sprintf("%05s", auth()->user()->id),
-            //         'id_pelanggan'          => date('y') . sprintf("%05s", auth()->user()->id),
-            //         'nama'                  => auth()->user()->name,
-            //         'info'                  => json_encode($info),
-            //         'rincian'               => json_encode($rincian),
-            //         'status_pembayaran'     => NULL,
-            //         'total_nominal'         => $total_nominal,
-            //         'waktu_berlaku'         => now(),
-            //         'waktu_kadaluarsa'      => Carbon::now()->addDays(3)->format('Y-m-d') . ' 23.59.59',
-            //     ]
-            // );
-            return view('admisi::spp.index');
+            // dd($value);
+            PembayaranSPP::create(
+                [
+                    'id_user'               => auth()->user()->id,
+                    'nomor_invoice'         => $invoice,
+                    'nomor_pembayaran'      => date('y') . sprintf("%05s", auth()->user()->id),
+                    'id_pelanggan'          => date('y') . sprintf("%05s", auth()->user()->id),
+                    'nama'                  => auth()->user()->name,
+                    'info'                  => json_encode($info),
+                    'rincian'               => json_encode($rincian),
+                    'status_pembayaran'     => NULL,
+                    'total_nominal'         => $total_nominal,
+                    'waktu_berlaku'         => now(),
+                    'waktu_kadaluarsa'      => Carbon::now()->addDays(3)->format('Y-m-d') . ' 23.59.59',
+                ]
+            );
+
+            return redirect()->to('admisi-pembayaran-spp');
         } catch (\Throwable $th) {
             dd($th);
         }
