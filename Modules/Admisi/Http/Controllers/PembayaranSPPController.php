@@ -2,6 +2,7 @@
 
 namespace Modules\Admisi\Http\Controllers;
 
+use App\Helpers\DataHelper;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,6 +45,46 @@ class PembayaranSPPController extends Controller
 
         if ($cek_spp) {
             if (strtolower($cek_spp->status_pembayaran) == 'terbayar') {
+
+                $biodata = Biodata::where('user_id', auth()->user()->id)
+                    ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
+                    ->join('prodis as c', 'b.prodi_id', 'c.kode_prodi')
+                    ->first();
+
+                // dd($biodata);
+
+                if (is_null($biodata->npm)) {
+                    $nomorurutlama = Biodata::whereNotNull('npm')
+                        ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
+                        ->where('b.prodi_id', $biodata->prodi_id)
+                        ->orderBy('mahasiswas.id', 'asc')
+                        ->first();
+                    // dd($nomorurutlama);
+
+                    if (is_null($nomorurutlama)) {
+                        $nomorurut = 1;
+                    } else {
+                        $nomorurut = substr($nomorurutlama->npm, -3) + 1;
+                    }
+                    $nomorurutbaru = sprintf("%03s", $nomorurut);
+
+                    $npm = substr($biodata->nama_prodi, 0, 2) . '24' . substr($biodata->prodi_id, 0, 2)  .  $nomorurutbaru;
+
+                    // dd($npm);
+
+
+                    try {
+                        Biodata::where('user_id', auth()->user()->id)
+                            ->update([
+                                'npm' => $npm,
+                            ]);
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
+                    return view('admisi::spp.npm');;
+                } else {
+                    return view('admisi::spp.npm');;
+                }
             } else {
                 $biodata = Biodata::where('user_id', auth()->user()->id)->first();
                 return view('admisi::spp.index', compact('cek_spp', 'biodata'));

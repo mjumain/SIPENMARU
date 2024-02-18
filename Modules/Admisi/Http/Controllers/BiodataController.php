@@ -44,7 +44,6 @@ class BiodataController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->hasFile('ktp'));
         $requestfield = array(
             // 'kode_prodi' => ['required'],
             // 'jalur_id' => ['required'],
@@ -152,8 +151,8 @@ class BiodataController extends Controller
             }
             return redirect()->route('admisi-biodata.index')->with('success', 'Biodata berhasil di perbarui');
         } catch (\Throwable $th) {
-            // return back()->withInput()->withErrors($validator)->with('error', 'Periksa kembali biodata anda');
-            dd($th);
+            return back()->withInput()->withErrors($validator)->with('error', 'Periksa kembali biodata anda');
+            // dd($th);
         }
     }
 

@@ -6,9 +6,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="callout callout-danger">
-                    <h4>Mohon maaf, anda dinyatakan <b>TIDAK LULUS</b> dalam proses seleksi penerimaan mahasiswa baru Universitas Muhammadiyah Jambi Tahun Akademik 2024/2025</h4>
-                        <p><button class="btn btn-info btn-sm">Hubungi CS</button></p>
+                    <div class="callout callout-success">
+                        <h5>Notifikasi</h5>
+                        <p>Terima kasih telah mengikuti seleksi penerimaan mahasiswa Universitas Muhammadiyah Jambi Tahun Akademik 2024/2025</p>
                     </div>
                 </div>
             </div>

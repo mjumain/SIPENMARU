@@ -13,10 +13,8 @@ class RiwayatPembayaran extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
-    
-    protected static function newFactory(): RiwayatPembayaranFactory
-    {
-        //return RiwayatPembayaranFactory::new();
-    }
+    protected $guarded = [];
+    protected $connection = 'h2h';
+    protected $table = 'tabel_tagihan_testing';
+    public $timestamps = false;
 }

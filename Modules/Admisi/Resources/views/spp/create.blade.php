@@ -5,16 +5,6 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                </div>
-                <div class="col-sm-6">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
                 <div class="col-12">
                     <div class="callout callout-success">
                         <form action="{{ route('admisi-pembayaran-spp.store') }}" method="POST">

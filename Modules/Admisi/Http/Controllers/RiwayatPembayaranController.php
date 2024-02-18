@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Admisi\Entities\Biodata;
+use Modules\Admisi\Entities\RiwayatPembayaran;
 
 class RiwayatPembayaranController extends Controller
 {
@@ -14,7 +16,9 @@ class RiwayatPembayaranController extends Controller
      */
     public function index()
     {
-        return view('admisi::index');
+        $pembayaran = RiwayatPembayaran::where('id_user', auth()->user()->id)->get();
+        $biodata = Biodata::where('user_id', auth()->user()->id)->first();
+        return view('admisi::riwayat.index', compact('biodata', 'pembayaran'));
     }
 
     /**
@@ -28,7 +32,7 @@ class RiwayatPembayaranController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         //
     }
@@ -52,7 +56,7 @@ class RiwayatPembayaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         //
     }
