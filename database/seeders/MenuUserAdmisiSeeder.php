@@ -75,5 +75,18 @@ class MenuUserAdmisiSeeder extends Seeder
         Permission::create(['name' => 'create_admisi_pembayaran_spp', 'menu_id' => $menu_id->id]);
         Permission::create(['name' => 'update_admisi_pembayaran_spp', 'menu_id' => $menu_id->id]);
         Permission::create(['name' => 'delete_admisi_pembayaran_spp', 'menu_id' => $menu_id->id]);
+
+        $menu_id = Menu::create([
+            'nama_menu' => 'Riwayat Pembayaran',
+            'url' => 'admisi-riwayat-pembayaran',
+            'icon' => 'fas fa-folder-open',
+            'parent_id' => $menu->id,
+            'urutan' => 5
+        ]);
+
+        Permission::create(['name' => 'read_admisi_riwayat_pembayaran', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'create_admisi_riwayat_pembayaran', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'update_admisi_riwayat_pembayaran', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'delete_admisi_riwayat_pembayaran', 'menu_id' => $menu_id->id]);
     }
 }

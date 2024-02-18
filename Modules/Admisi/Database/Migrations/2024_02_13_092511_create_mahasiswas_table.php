@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nama_mahasiswa')->nullable();
+            $table->string('npm')->nullable();
             $table->string('nik')->nullable();
             $table->string('nisn')->nullable();
             $table->string('npsn')->nullable();

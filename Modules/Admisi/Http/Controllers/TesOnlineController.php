@@ -54,11 +54,11 @@ class TesOnlineController extends Controller
                         ->first();
                     // dd($hasilcbt);
                     if (!empty($hasilcbt->nilai)) {
-                        if ($hasilcbt->nilai >= 20) {
+                        if ($hasilcbt->nilai >= 30) {
                             // dd('anda lulus');
                             return view('admisi::cbt.lulus');
                         } else {
-                            dd('anda tidak lulus');
+                            return view('admisi::cbt.tidaklulus');
                         }
                     } else {
                         return view('admisi::cbt.belumtes', compact('cek_akun_cbt'));
@@ -77,15 +77,17 @@ class TesOnlineController extends Controller
                 }
             }
         } else {
-            $id_kelas_pendaftaran = DB::table('mahasiswas as a')
+            $data_pendaftaran = DB::table('mahasiswas as a')
                 ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'a.has_prodi_kelas_jalur')
                 ->where('a.user_id', auth()->user()->id)
-                ->first()->kelas_id;
-
-            if ($id_kelas_pendaftaran == 1) {
+                ->first();
+            // dd($data_pendaftaran);
+            if ($data_pendaftaran->prodi_id != 60102 && $data_pendaftaran->kelas_id == 1) {
                 $biaya = 200000;
-            } elseif ($id_kelas_pendaftaran == 2) {
+            } elseif ($data_pendaftaran->prodi_id != 60102 && $data_pendaftaran->kelas_id == 2) {
                 $biaya = 250000;
+            } elseif ($data_pendaftaran->prodi_id == 60102) {
+                $biaya = 350000;
             }
 
             $info[] = [
@@ -118,9 +120,9 @@ class TesOnlineController extends Controller
                         'waktu_kadaluarsa'      => Carbon::now()->addDays(3)->format('Y-m-d') . ' 23.59.59',
                     ]
                 );
-                return view('admisi::cbt.belumbayar');
+                return redirect()->to('admisi-tes-online');
             } catch (\Throwable $th) {
-                dd($th);
+                // dd($th);
             }
         }
     }

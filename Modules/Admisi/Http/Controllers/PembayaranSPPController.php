@@ -42,10 +42,12 @@ class PembayaranSPPController extends Controller
             ->orderby('id', 'asc')
             ->first();
 
-
         if ($cek_spp) {
-            $biodata = Biodata::where('user_id', auth()->user()->id)->first();
-            return view('admisi::spp.index', compact('cek_spp', 'biodata'));
+            if (strtolower($cek_spp->status_pembayaran) == 'terbayar') {
+            } else {
+                $biodata = Biodata::where('user_id', auth()->user()->id)->first();
+                return view('admisi::spp.index', compact('cek_spp', 'biodata'));
+            }
         } else {
             return view('admisi::spp.create');
         }
@@ -76,70 +78,75 @@ class PembayaranSPPController extends Controller
         // }
         //
 
-        $has_prodi_kelas_jalur = Biodata::where('user_id', auth()->user()->id)->first();
-        $jalur_pendaftaran_id = HasPKJAdminAdmisi::find($has_prodi_kelas_jalur->has_prodi_kelas_jalur);
-        $kode_prodi = $jalur_pendaftaran_id->prodi_id;
+        $data_pendaftaran = Biodata::where('user_id', auth()->user()->id)
+            ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
+            ->first();
+        // dd($data_pendaftaran);
 
-        if ($jalur_pendaftaran_id->jalur_pendaftaran_id == 3) {
-            if ($kode_prodi == '60201') {
-                $nominal = 3860000;
-            } elseif ($kode_prodi == '61201') {
-                $nominal = 3860000;
-            } elseif ($kode_prodi == '57201') {
-                $nominal = 4110000;
+        $kode_prodi = $data_pendaftaran->prodi_id;
+        $kelas_id = $data_pendaftaran->kelas_id;
+        $jalur_pendaftaran_id = $data_pendaftaran->jalur_pendaftaran_id;
+
+        if ($jalur_pendaftaran_id == 3) {
+            if ($kode_prodi == '54251') {
+                $nominal = 1430000 * 2;
             } elseif ($kode_prodi == '55201') {
-                $nominal = 4110000;
-            } elseif ($kode_prodi == '54251') {
-                $nominal = 4110000;
-            } else {
-                $nominal = 2860000;
+                $nominal = 2055000 * 2;
+            } elseif ($kode_prodi == '57201') {
+                $nominal = 2055000 * 2;
+            } elseif ($kode_prodi == '60201') {
+                $nominal = 1930000 * 2;
+            } elseif ($kode_prodi == '61201') {
+                $nominal = 1930000 * 2;
+            } elseif ($kode_prodi == '60102') {
+                $nominal = 8350000;
             }
         } else {
-            if ($kode_prodi == '60201') {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 3860000;
+            if ($kode_prodi == '54251') {
+                if ($kelas_id == 1) {
+                    $nominal = 1430000 * 2;
                 } else {
-                    $nominal = 4860000;
-                }
-            } elseif ($kode_prodi == '61201') {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 3860000;
-                } else {
-                    $nominal = 4860000;
-                }
-            } elseif ($kode_prodi == '57201') {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 4110000;
-                } else {
-                    $nominal = 4860000;
+                    $nominal = 1930000 * 2;
                 }
             } elseif ($kode_prodi == '55201') {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 4110000;
+                if ($kelas_id == 1) {
+                    $nominal = 2055000 * 2;
                 } else {
-                    $nominal = 4860000;
+                    $nominal = 2430000 * 2;
                 }
-            } elseif ($kode_prodi == '54251') {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 4110000;
+            } elseif ($kode_prodi == '57201') {
+                if ($kelas_id == 1) {
+                    $nominal = 2055000 * 2;
                 } else {
-                    $nominal = 4860000;
+                    $nominal = 2430000 * 2;
                 }
-            } else {
-                if ($jalur_pendaftaran_id->prodi_id == 1) {
-                    $nominal = 2860000;
+            } elseif ($kode_prodi == '60201') {
+                if ($kelas_id == 1) {
+                    $nominal = 1930000 * 2;
                 } else {
-                    $nominal = 3860000;
+                    $nominal = 2430000 * 2;
+                }
+            } elseif ($kode_prodi == '61201') {
+                if ($kelas_id == 1) {
+                    $nominal = 1930000 * 2;
+                } else {
+                    $nominal = 2430000 * 2;
+                }
+            } elseif ($kode_prodi == '60102') {
+                if ($jalur_pendaftaran_id == 9) {
+                    $nominal = 7350000;
+                } else {
+                    $nominal = 8350000;
                 }
             }
         }
 
-        if ($request->metode_pembayaran == 1) {
-            $bayar = $nominal;
-            $value = "Pembayaran SPP Lunas";
-        } else {
+        if ($request->metode_pembayaran == 2) {
             $bayar = 1 / 2 * $nominal;
             $value = "Pembayaran SPP Angsuran Pertama";
+        } else {
+            $bayar = $nominal;
+            $value = "Pembayaran SPP Lunas";
         }
 
 

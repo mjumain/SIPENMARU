@@ -16,10 +16,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="callout callout-success">
-                        <h4>Selamat, anda dinyatakan <b>LULUS</b> dalam proses seleksi penerimaan mahasiswa baru Universitas
-                            Muhammadiyah Jambi Tahun Akademik 2024/2025</h4>
-                        <a href="{{ route('admisi-pembayaran-spp.index') }}"><button class="btn btn-sm btn-success">Lanjutkan</button></a>
+                    <div class="callout callout-danger">
+                    <h4>Mohon maaf, anda dinyatakan <b>TIDAK LULUS</b> dalam proses seleksi penerimaan mahasiswa baru Universitas Muhammadiyah Jambi Tahun Akademik 2024/2025</h4>
+                        <p><button class="btn btn-info btn-sm">Hubungi CS</button></p>
                     </div>
                 </div>
             </div>

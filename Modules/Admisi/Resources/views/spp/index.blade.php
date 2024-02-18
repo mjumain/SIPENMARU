@@ -16,10 +16,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="callout callout-danger">
+                    {{-- <div class="callout callout-danger">
                         <h5><i class="fas fa-info"></i> Perhatian:</h5>
                         Silahkan lakukan pembayaran pendaftaran terdahulu, untuk cara pembayaran silahkan klik link berikut
-                    </div>
+                    </div> --}}
 
                     <div class="invoice p-3 mb-3">
                         <div class="row invoice-info">
@@ -94,11 +94,7 @@
 
                         <div class="row">
                             <div class="col-8">
-                                <p class="lead">Metode Pembayaran:</p>
-                                <img src="../../dist/img/credit/visa.png" alt="Visa" />
-                                <img src="../../dist/img/credit/mastercard.png" alt="Mastercard" />
-                                <img src="../../dist/img/credit/american-express.png" alt="American Express" />
-                                <img src="../../dist/img/credit/paypal2.png" alt="Paypal" />
+                                <p class="lead">Cara Pembayaran:</p>
                                 <p class="text-muted well well-sm shadow-none" style="margin-top: 10px">
                                     Etsy doostang zoodles disqus groupon greplin oooj voxy
                                     zoodles, weebly ning heekya handango imeem plugg dopplr
