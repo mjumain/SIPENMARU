@@ -32,9 +32,9 @@ class MenuAgenAdmisiSeeder extends Seeder
             'urutan' => 1
         ]);
 
-        Permission::create(['name' => 'read_admisi_agen_dashboard', 'menu_id' => $menu_id->id]);
-        Permission::create(['name' => 'create_admisi_agen_dashboard', 'menu_id' => $menu_id->id]);
-        Permission::create(['name' => 'update_admisi_agen_dashboard', 'menu_id' => $menu_id->id]);
-        Permission::create(['name' => 'delete_admisi_agen_dashboard', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'read_agen_admisi_dashboard', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'create_agen_admisi_dashboard', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'update_agen_admisi_dashboard', 'menu_id' => $menu_id->id]);
+        Permission::create(['name' => 'delete_agen_admisi_dashboard', 'menu_id' => $menu_id->id]);
     }
 }
