@@ -12,10 +12,10 @@ class AgenController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:read_admisi_agen_dashboard')->only('index', 'show');
-        $this->middleware('permission:create_admisi_agen_dashboard')->only('create', 'store');
-        $this->middleware('permission:update_admisi_agen_dashboard')->only('edit', 'update');
-        $this->middleware('permission:delete_admisi_agen_dashboard')->only('destroy');
+        $this->middleware('permission:read_agen_admisi_dashboard')->only('index', 'show');
+        $this->middleware('permission:create_agen_admisi_dashboard')->only('create', 'store');
+        $this->middleware('permission:update_agen_admisi_dashboard')->only('edit', 'update');
+        $this->middleware('permission:delete_agen_admisi_dashboard')->only('destroy');
     }
     /**
      * Display a listing of the resource.
