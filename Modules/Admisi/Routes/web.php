@@ -8,6 +8,7 @@ use Modules\Admisi\Http\Controllers\Admin\JalurPenerimaanAdmisiController;
 use Modules\Admisi\Http\Controllers\Admin\KelasAdmisiController;
 use Modules\Admisi\Http\Controllers\Admin\ProdiAdmisiController;
 use Modules\Admisi\Http\Controllers\AdmisiController;
+use Modules\Admisi\Http\Controllers\Agen\AgenController;
 use Modules\Admisi\Http\Controllers\BiodataController;
 use Modules\Admisi\Http\Controllers\PembayaranSPPController;
 use Modules\Admisi\Http\Controllers\ProdiHasController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('prodi-jalur/{kode_prodi}', [ProdiHasController::class, 'getJalur']);
     Route::get('get-npsn', [ProdiHasController::class, 'getNpsn']);
 
+    Route::resource('admin-agen-dashboard', AgenController::class);
 
     Route::resource('admin-admisi-dashboard', DashboardAdminAdmisiController::class);
     Route::resource('admin-admisi-jalur-penerimaan', JalurPenerimaanAdmisiController::class);

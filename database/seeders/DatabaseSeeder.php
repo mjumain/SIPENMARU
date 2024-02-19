@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MasterSeeder::class);
         $this->call(MenuUserAdmisiSeeder::class);
         $this->call(MenuAdminAdmisiSeeder::class);
+        $this->call(MenuAgenAdmisiSeeder::class);
         $this->call(AdmisiDatabaseSeeder::class);
     }
 }
