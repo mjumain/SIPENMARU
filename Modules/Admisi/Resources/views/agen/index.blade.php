@@ -47,6 +47,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Data Mahasiswa</h3>
                         </div>
+                        {{-- @dd($datas) --}}
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -58,13 +59,17 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($datas as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->nama_mahasiswa }}</td>
-                                            <td>{{ $item->nama_prodi }}</td>
-                                            <td>{{ $item->kelas_perkuliahan }}</td>
-                                            <td>{{ $item->jalur_pendaftaran }}</td>
-                                        </tr>
+                                        @foreach ($item->pembayaran as $value)
+                                            @if ($value->status_pembayaran == 'terbayar')
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->nama_mahasiswa }}</td>
+                                                    <td>{{ $item->nama_prodi }}</td>
+                                                    <td>{{ $item->kelas_perkuliahan }}</td>
+                                                    <td>{{ $item->jalur_pendaftaran }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                     @endforeach
                                 </tbody>
                             </table>

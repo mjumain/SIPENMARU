@@ -27,6 +27,8 @@ class HomeController extends Controller
     {
         if (auth()->user()->hasRole('user-admisi')) {
             return redirect()->to('admisi-dashboard');
+        } elseif (auth()->user()->hasRole('agen-admisi')) {
+            return redirect()->to('admin-agen-dashboard');
         } elseif (auth()->user()->hasRole('admin-admisi')) {
             return redirect()->to('admin-admisi-dashboard');
         } else {

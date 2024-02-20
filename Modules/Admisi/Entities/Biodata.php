@@ -10,4 +10,9 @@ class Biodata extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'mahasiswas';
+
+    public function pembayaran()
+    {
+        return $this->hasMany(PembayaranPendaftaran::class, 'id_user', 'user_id');
+    }
 }

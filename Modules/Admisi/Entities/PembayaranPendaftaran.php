@@ -17,4 +17,9 @@ class PembayaranPendaftaran extends Model
     protected $connection = 'h2h';
     protected $table = 'tabel_tagihan_testing';
     public $timestamps = false;
+
+    public function biodata()
+    {
+        return $this->belongsTo(Biodata::class);
+    }
 }
