@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('prodi-kelas/{kode_prodi}/{jalur_id}', [ProdiHasController::class, 'getKelas']);
     Route::get('prodi-jalur/{kode_prodi}', [ProdiHasController::class, 'getJalur']);
     Route::get('get-npsn', [ProdiHasController::class, 'getNpsn']);
+    Route::get('get-agen', [ProdiHasController::class, 'getAgen']);
 
     Route::resource('admin-agen-dashboard', AgenController::class);
 

@@ -3,11 +3,13 @@
 namespace Modules\Admisi\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Modules\Admisi\Entities\Agen;
 
 class ProdiHasController extends Controller
 {
@@ -23,7 +25,7 @@ class ProdiHasController extends Controller
      */
     public function getKelas($kode_prodi, $jalur_id)
     {
-        $kelas = DB::table('prodi_has_kelas_jalur_pendaftarans as a')->select('c.id','c.kelas_perkuliahan as kelas')->distinct()
+        $kelas = DB::table('prodi_has_kelas_jalur_pendaftarans as a')->select('c.id', 'c.kelas_perkuliahan as kelas')->distinct()
             ->join('prodis as b', 'b.kode_prodi', 'a.prodi_id')
             ->join('kelas_perkuliahans as c', 'c.id', 'a.kelas_id')
             ->where('b.kode_prodi', $kode_prodi)
@@ -33,7 +35,7 @@ class ProdiHasController extends Controller
     }
     public function getJalur($kode_prodi)
     {
-        $jalur = DB::table('prodi_has_kelas_jalur_pendaftarans as a')->select('d.id','d.jalur_pendaftaran as jalur')->distinct()
+        $jalur = DB::table('prodi_has_kelas_jalur_pendaftarans as a')->select('d.id', 'd.jalur_pendaftaran as jalur')->distinct()
             ->join('prodis as b', 'b.kode_prodi', 'a.prodi_id')
             ->join('jalur_pendaftarans as d', 'd.id', 'a.jalur_pendaftaran_id')
             ->where('a.prodi_id', $kode_prodi)
@@ -49,6 +51,23 @@ class ProdiHasController extends Controller
                 ->where('nama_sekolah', 'LIKE', '%' . $request->get('q') . '%')
                 ->where('npsn', 'LIKE', '%' . $request->get('q') . '%')
                 ->orWhere('nama_sekolah', 'LIKE', '%' . $request->get('q') . '%')
+                ->limit(20)
+                ->get();
+        }
+        return response()->json($data)->header("Access-Control-Allow-Origin",  "*");
+    }
+
+    public function getAgen(Request $request): JsonResponse
+    {
+        $data = [];
+        if ($request->filled('q')) {
+
+            $data = User::join('agens as a', 'a.user_id', 'users.id')
+                ->whereHas('roles', function ($query) {
+                    return $query->where('name', 'agen-admisi');
+                })
+                ->where('name', 'LIKE', '%' . $request->get('q') . '%')
+                ->orWhere('a.kode_referral', 'LIKE', '%' . $request->get('q') . '%')
                 ->limit(20)
                 ->get();
         }

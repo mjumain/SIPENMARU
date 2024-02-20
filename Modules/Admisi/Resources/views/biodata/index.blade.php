@@ -256,7 +256,8 @@
                     return {
                         results: $.map(data, function(item) {
                             return {
-                                text: item.npsn + ' - ' + item.nama_sekolah.toUpperCase() + ' - ' + item.alamat.toUpperCase() +
+                                text: item.npsn + ' - ' + item.nama_sekolah.toUpperCase() + ' - ' + item
+                                    .alamat.toUpperCase() +
                                     ' - ' + item.provinsi.toUpperCase(),
                                 id: item.npsn
                             }
@@ -267,30 +268,30 @@
             }
         });
 
-        // var path = "{{ url('refferalagen') }}";
+        var path = "{{ url('get-agen') }}";
 
-        // $('#kode_refferal').select2({
-        //     theme: 'bootstrap4',
-        //     width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-        //     placeholder: "Masukan Kode Refferal atau Nama Agen",
-        //     allowClear: Boolean($(this).data('allow-clear')),
-        //     ajax: {
-        //         url: path,
-        //         dataType: 'json',
-        //         delay: 250,
-        //         processResults: function(data) {
-        //             return {
-        //                 results: $.map(data, function(item) {
-        //                     return {
-        //                         text: item.kode_refferal + ' - ' + item.name.toUpperCase(),
-        //                         id: item.kode_refferal
-        //                     }
-        //                 })
-        //             };
-        //         },
-        //         cache: true
-        //     }
-        // });
+        $('#kode_refferal').select2({
+            theme: 'bootstrap4',
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: "Masukan Kode Refferal atau Nama Agen",
+            allowClear: Boolean($(this).data('allow-clear')),
+            ajax: {
+                url: path,
+                dataType: 'json',
+                delay: 250,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.kode_referral + ' - ' + item.name.toUpperCase(),
+                                id: item.kode_referral
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
     </script>
     <script>
         $('#jalur_id').change(function() {
