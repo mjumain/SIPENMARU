@@ -3,18 +3,11 @@
 namespace Modules\Admisi\Http\Controllers\Agen;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Modules\Admisi\Entities\Agen;
 use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\PembayaranPendaftaran;
-use Modules\Admisi\Entities\PembayaranSPP;
-
-use function PHPUnit\Framework\isNull;
 
 class AgenController extends Controller
 {

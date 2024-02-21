@@ -6,14 +6,6 @@
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
-            <div class="callout callout-info">
-                <h5>Petunjuk pengisian biodata !</h5>
-                <p>Follow the steps to continue to payment.</p>
-            </div>
-        </div>
-    </div>
-    <div class="content">
-        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-info card-outline">

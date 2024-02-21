@@ -18,7 +18,6 @@
                                     <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
                                         data-cfemail="93fafdf5fcd3f2fffef2e0f2f6f6f7e0e7e6f7fafcbdf0fcfe">humas@umjambi.ac.id</a>
                                 </address>
-                                Nomor Tagihan : {{ $pembayaran->first()->nomor_pembayaran }}
                             </div>
                         </div>
                         <div class="row">
