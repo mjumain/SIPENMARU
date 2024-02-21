@@ -27,7 +27,7 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ count($datas) }}</h3>
+                            {{-- <h3>{{ count($datas) }}</h3> --}}
                             <p>Mahasiswa Menggunakan</p>
                         </div>
                         <div class="icon">
