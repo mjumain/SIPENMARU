@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\Admisi\Entities\Agen;
 use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\PembayaranPendaftaran;
 use Modules\Admisi\Entities\PembayaranSPP;
+
+use function PHPUnit\Framework\isNull;
 
 class AgenController extends Controller
 {
@@ -41,33 +44,26 @@ class AgenController extends Controller
                     ]);
                     // dd('kode referral kosong');
                 } else {
-                    // dd('oke');
-                    // $pembayaran = Config::get('database.connections.h2h.database');
-                    // dd($database2);
 
-                    // $datas = Biodata::where('refferal', $agen->kode_referral)
-                    //     ->join('prodi_has_kelas_jalur_pendaftarans as a', 'a.id', 'has_prodi_kelas_jalur')
-                    //     ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
-                    //     ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
-                    //     ->join('kelas_perkuliahans as d', 'd.id', 'a.kelas_id')
-                    //     ->get();
-                    // $datas = DB::table('mahasiswas')
-                        // ->join('h2h.tabel_tagihan_testing', 'mahasiswas.user_id', '=', 'tabel_tagihan_testing.id_user')
-                        // ->select('mysql_users.*', 'other_table.column')
-                        // ->get();
-                    // ->join('prodi_has_kelas_jalur_pendaftarans as ', 'a.id', 'has_prodi_kelas_jalur')
-                    // ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
-                    // ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
-                    // ->join('kelas_perkuliahans as d', 'd.id', 'a.kelas_id')
-                    // ->join(DB::connection('h2h')
-                    // ->table('tabel_tagihan_testing as b', 'b.id_user', '=', 'a.user_id'))
-                    // ->join('h2h.tabel_tagihan_testing as d', 'd.id_user', 'a.user_id')
-                    // ->get();
-
-
-
-                    // dd($datas);
-                    return view('admisi::agen.index', compact('agen'));
+                    $datas = Biodata::where('refferal', $agen->kode_referral)
+                        ->join('prodi_has_kelas_jalur_pendaftarans as a', 'a.id', 'has_prodi_kelas_jalur')
+                        ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
+                        ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
+                        ->join('kelas_perkuliahans as d', 'd.id', 'a.kelas_id')
+                        ->get();
+                    if (count($datas) > 0) {
+                        foreach ($datas as $key => $value) {
+                            $cek_data = PembayaranPendaftaran::where('id_user', $value->user_id)->first();
+                            if (!is_null($cek_data)) {
+                                if ($cek_data->status_pembayaran == 'terbayar') {
+                                    $cek_pembayaran_pendaftaran[] = $value;
+                                }
+                            }
+                        };
+                    } else {
+                        $cek_pembayaran_pendaftaran = [];
+                    }
+                    return view('admisi::agen.index', compact('agen', 'cek_pembayaran_pendaftaran'));
                 }
             }
         } else {
@@ -93,6 +89,12 @@ class AgenController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), ['nik' => ['required', 'unique:mahasiswas,nik'],], ['nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar',]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator)->with('error', 'Periksa kembali biodata anda');
+        }
+
         $agen = Agen::where('user_id', auth()->user()->id)->first();
         $agen->nik = $request->nik;
         $agen->update();

@@ -44,13 +44,21 @@ class BiodataController extends Controller
      */
     public function store(Request $request)
     {
-        $requestfield = array(
+        if ($request->jalur_id == 5) {
+            $addfield = array(
+                'nomor_registrasi_kipk' => ['required'],
+            );
+        } else {
+            $addfield = [];
+        }
+
+        $requestfield = array_merge(array(
             'kode_prodi' => ['required'],
             'jalur_id' => ['required'],
             'kelas_id' => ['required'],
             'nama_lengkap' => ['required'],
-            'nik' => ['required', 'unique:mahasiswa,nik'],
-            'nisn' => ['required', 'unique:mahasiswa,nisn'],
+            'nik' => ['required', 'unique:mahasiswas,nik'],
+            'nisn' => ['required', 'unique:mahasiswas,nisn'],
             'npsn' => ['required'],
             'email' => ['required'],
             'nomor_whatsapp' => ['required'],
@@ -58,7 +66,7 @@ class BiodataController extends Controller
             'ktp' => ['required', 'mimes:jpeg,jpg,png,pdf'],
             'ijazah' => ['required', 'mimes:jpeg,jpg,png,pdf'],
             'pendukung' => ['mimes:jpeg,jpg,png,pdf'],
-        );
+        ), $addfield);
 
         $rule = array(
             'kode_prodi.required' => 'Program Studi belum dipilih',
@@ -67,9 +75,12 @@ class BiodataController extends Controller
 
             'nama_lengkap.required' => 'Nama lengkap harus diisi',
             'nik.required' => 'Nomor Induk Kependudukan (NIK) harus diisi',
+            'nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar',
+            'nisn.unique' => 'Nomor Induk Siswa Nasional (NISN) sudah terdaftar',
             'nisn.required' => 'Nomor Induk Siswa Nasional (NISN) harus diisi',
             'npsn.required' => 'Nomor Pokok Siswa Nasional (NPSN) harus diisi',
             'nomor_whatsapp.required' => 'Nomor WhatsApp/Handphone harus diisi',
+            'nomor_registrasi_kipk.required' => 'Nomor Registrasi KIP Kuliah harus diisi',
 
             'ktp.required' => 'Scan Kartu Tanda Penduduk (KTP) harus diisi',
             'kk.required' => 'Scan Kartu Keluarga (KK) harus diisi',

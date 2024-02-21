@@ -27,7 +27,7 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            {{-- <h3>{{ count($datas) }}</h3> --}}
+                            <h3>{{ count($cek_pembayaran_pendaftaran) }}</h3>
                             <p>Mahasiswa Menggunakan</p>
                         </div>
                         <div class="icon">
@@ -58,19 +58,15 @@
                                     <th>Jalur Pendaftaran</th>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($datas as $item)
-                                        @foreach ($item->pembayaran as $value)
-                                            @if ($value->status_pembayaran == 'terbayar')
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->nama_mahasiswa }}</td>
-                                                    <td>{{ $item->nama_prodi }}</td>
-                                                    <td>{{ $item->kelas_perkuliahan }}</td>
-                                                    <td>{{ $item->jalur_pendaftaran }}</td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                    @endforeach --}}
+                                    @foreach ($cek_pembayaran_pendaftaran as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama_mahasiswa }}</td>
+                                            <td>{{ $item->nama_prodi }}</td>
+                                            <td>{{ $item->kelas_perkuliahan }}</td>
+                                            <td>{{ $item->jalur_pendaftaran }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

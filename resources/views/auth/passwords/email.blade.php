@@ -44,7 +44,6 @@
                                 <div class="">
                                     <div class="mb-3 text-center">
                                         {{ session()->get('status') }}
-                                        {{-- <img src="assets/images/logo-icon.png" width="60" alt=""> --}}
                                     </div>
                                     <div class="text-center mb-4">
                                         <h3 class="">LUPA PASSWORD</h3>
@@ -72,9 +71,8 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <a href="{{ route('login') }}" class="btn btn-light"><i
-                                                            class='bx bx-arrow-back me-1'></i>Back to
-                                                        Login</a>
+                                                    <a href="{{ route('login') }}" class="btn btn-warning btn-sm"><i
+                                                            class='bx bx-arrow-back me-1'></i>Kembali Login</a>
                                                 </div>
                                             </div>
                                         </form>
