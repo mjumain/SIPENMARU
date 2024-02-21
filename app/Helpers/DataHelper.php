@@ -21,7 +21,7 @@ class DataHelper
     public static function cekPembayaranPendaftaran($user_id)
     {
         $query = PembayaranPendaftaran::where(function ($query) {
-            $query->where('nomor_invoice', 'like', '%' . '/SPP/' . '%');
+            $query->where('nomor_invoice', 'like', '%' . '/PMB/' . '%');
             $query->where('id_user', auth()->user()->id);
         })->first();
 

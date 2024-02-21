@@ -49,8 +49,8 @@ class TesOnlineController extends Controller
                         ->select(DB::raw("SUM(tessoal_nilai) as nilai"))
                         ->join('cbt_tes_user as b', 'a.tessoal_tesuser_id', '=', 'b.tesuser_tes_id')
                         ->join('cbt_user as c', 'b.tesuser_user_id', '=', 'c.user_id')
-                        // ->where('c.user_name', '=', auth()->user()->email)
-                        ->where('c.user_name', '=', '1502172605000001')
+                        ->where('c.user_name', '=', auth()->user()->email)
+                        // ->where('c.user_name', '=', '1502172605000001')
                         ->first();
                     // dd($hasilcbt);
                     if (!empty($hasilcbt->nilai)) {
