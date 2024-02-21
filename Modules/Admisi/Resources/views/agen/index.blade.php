@@ -58,7 +58,7 @@
                                     <th>Jalur Pendaftaran</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($datas as $item)
+                                    {{-- @foreach ($datas as $item)
                                         @foreach ($item->pembayaran as $value)
                                             @if ($value->status_pembayaran == 'terbayar')
                                                 <tr>
@@ -70,7 +70,7 @@
                                                 </tr>
                                             @endif
                                         @endforeach
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
