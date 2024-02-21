@@ -54,7 +54,7 @@
                                                 <input id="email" type="email"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         name="email" value="{{ $email ?? old('email') }}" required
-                                                        autocomplete="email" autofocus>
+                                                        autocomplete="email" readonly>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -67,7 +67,7 @@
                                                     <input type="password" name="password"
                                                         class="form-control border-end-0 @error('password') is-invalid @enderror"
                                                         id="inputChoosePassword" required autocomplete="new-password"
-                                                        placeholder="Masukan Password"> <a href="javascript:;"
+                                                        placeholder="Masukan Password Baru" autofocus> <a href="javascript:;"
                                                         class="input-group-text bg-transparent"><i
                                                             class='bx bx-hide'></i></a>
                                                     @error('password')
@@ -84,7 +84,7 @@
                                                     <input type="password" name="password_confirmation"
                                                         id="password-confirm" class="form-control border-end-0"
                                                         id="inputChoosePassword" value=""
-                                                        placeholder="Enter Password" autocomplete="new-password"> <a
+                                                        placeholder="Ulangi Password Baru" autocomplete="new-password"> <a
                                                         href="javascript:;" class="input-group-text bg-transparent"><i
                                                             class='bx bx-hide'></i></a>
                                                 </div>
