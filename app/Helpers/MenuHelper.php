@@ -12,11 +12,15 @@ class MenuHelper
     {
         $menu_roles = DB::table('role_has_menus')->where('role_id', auth()->user()->roles->pluck("id")->first())->get();
 
-        foreach ($menu_roles as  $value) {
-            $array_menu_roles[] = $value->menu_id;
-        }
-        if (!is_null($menu_roles)) {
-            $array_menu_roles = $array_menu_roles;
+        if (count($menu_roles) > 0) {
+            foreach ($menu_roles as  $value) {
+                $array_menu_roles[] = $value->menu_id;
+            }
+            if (!is_null($menu_roles)) {
+                $array_menu_roles = $array_menu_roles;
+            } else {
+                $array_menu_roles = ['user-admisi'];
+            }
         } else {
             $array_menu_roles = ['user-admisi'];
         }

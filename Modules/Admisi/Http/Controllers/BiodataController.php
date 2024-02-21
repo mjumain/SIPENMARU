@@ -45,19 +45,19 @@ class BiodataController extends Controller
     public function store(Request $request)
     {
         $requestfield = array(
-            // 'kode_prodi' => ['required'],
-            // 'jalur_id' => ['required'],
-            // 'kelas_id' => ['required'],
-            // 'nama_lengkap' => ['required'],
-            // 'nik' => ['required', 'unique:mahasiswa,nik'],
-            // 'nisn' => ['required', 'unique:mahasiswa,nisn'],
-            // 'npsn' => ['required'],
-            // 'email' => ['required'],
-            // 'nomor_whatsapp' => ['required'],
-            // 'kk' => ['required', 'mimes:jpeg,jpg,png,pdf'],
-            // 'ktp' => ['required', 'mimes:jpeg,jpg,png,pdf'],
-            // 'ijazah' => ['required', 'mimes:jpeg,jpg,png,pdf'],
-            // 'pendukung' => ['mimes:jpeg,jpg,png,pdf'],
+            'kode_prodi' => ['required'],
+            'jalur_id' => ['required'],
+            'kelas_id' => ['required'],
+            'nama_lengkap' => ['required'],
+            'nik' => ['required', 'unique:mahasiswa,nik'],
+            'nisn' => ['required', 'unique:mahasiswa,nisn'],
+            'npsn' => ['required'],
+            'email' => ['required'],
+            'nomor_whatsapp' => ['required'],
+            'kk' => ['required', 'mimes:jpeg,jpg,png,pdf'],
+            'ktp' => ['required', 'mimes:jpeg,jpg,png,pdf'],
+            'ijazah' => ['required', 'mimes:jpeg,jpg,png,pdf'],
+            'pendukung' => ['mimes:jpeg,jpg,png,pdf'],
         );
 
         $rule = array(

@@ -11,6 +11,13 @@ use Modules\Admisi\Entities\RiwayatPembayaran;
 
 class RiwayatPembayaranController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:read_admisi_riwayat_pembayaran')->only('index', 'show');
+        $this->middleware('permission:create_admisi_riwayat_pembayaran')->only('create', 'store');
+        $this->middleware('permission:update_admisi_riwayat_pembayaran')->only('edit', 'update');
+        $this->middleware('permission:delete_admisi_riwayat_pembayaran')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

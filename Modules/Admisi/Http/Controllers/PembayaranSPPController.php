@@ -25,16 +25,16 @@ class PembayaranSPPController extends Controller
      */
     public function index()
     {
-        // $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
-        // if (is_null($query)) {
-        //     $biodata = DataHelper::cekBiodata(auth()->user()->id);
-        //     if (is_null($biodata)) {
-        //         return redirect()->route('admisi-tes-online.index');
-        //     } else {
-        //         toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
-        //         return redirect()->route('admisi-tes-online.index');
-        //     }
-        // }
+        $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
+        if (is_null($query)) {
+            $biodata = DataHelper::cekBiodata(auth()->user()->id);
+            if (is_null($biodata)) {
+                return redirect()->route('admisi-tes-online.index');
+            } else {
+                toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
+                return redirect()->route('admisi-tes-online.index');
+            }
+        }
 
         $cek_spp = PembayaranSPP::where(function ($query) {
             $query->where('nomor_invoice', 'like', '%' . '/SPP/' . '%');
