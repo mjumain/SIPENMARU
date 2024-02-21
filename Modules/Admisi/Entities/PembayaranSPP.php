@@ -15,6 +15,7 @@ class PembayaranSPP extends Model
      */
     protected $guarded = [];
     protected $connection = 'h2h';
-    protected $table = 'tabel_tagihan_testing';
+    // protected $table = 'tabel_tagihan_testing';
+    protected $table = 'tabel_tagihan';
     public $timestamps = false;
 }

@@ -51,10 +51,10 @@ class AgenController extends Controller
                     //     ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
                     //     ->join('kelas_perkuliahans as d', 'd.id', 'a.kelas_id')
                     //     ->get();
-                    $datas = DB::table('mahasiswas')
-                        ->join('h2h.tabel_tagihan_testing', 'mahasiswas.user_id', '=', 'tabel_tagihan_testing.id_user')
+                    // $datas = DB::table('mahasiswas')
+                        // ->join('h2h.tabel_tagihan_testing', 'mahasiswas.user_id', '=', 'tabel_tagihan_testing.id_user')
                         // ->select('mysql_users.*', 'other_table.column')
-                        ->get();
+                        // ->get();
                     // ->join('prodi_has_kelas_jalur_pendaftarans as ', 'a.id', 'has_prodi_kelas_jalur')
                     // ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
                     // ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
@@ -66,8 +66,8 @@ class AgenController extends Controller
 
 
 
-                    dd($datas);
-                    return view('admisi::agen.index', compact('agen', 'datas'));
+                    // dd($datas);
+                    return view('admisi::agen.index', compact('agen'));
                 }
             }
         } else {
