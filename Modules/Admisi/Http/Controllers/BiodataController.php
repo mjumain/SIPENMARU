@@ -160,7 +160,8 @@ class BiodataController extends Controller
                 $filependukung->pendukung = 'pendukung/' . $filenameSimpan;
                 $filependukung->update();
             }
-            return redirect()->route('admisi-biodata.index')->with('success', 'Biodata berhasil di perbarui');
+            toastr()->success('Biodata berhasil disimpan');
+            return redirect()->route('admisi-biodata.index');
         } catch (\Throwable $th) {
             return back()->withInput()->withErrors($validator)->with('error', 'Periksa kembali biodata anda');
             // dd($th);

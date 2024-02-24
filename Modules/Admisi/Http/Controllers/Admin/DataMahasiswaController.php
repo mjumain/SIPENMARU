@@ -29,18 +29,24 @@ class DataMahasiswaController extends Controller
             ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
             ->join('prodis as c', 'c.kode_prodi', 'a.prodi_id')
             ->join('kelas_perkuliahans as d', 'd.id', 'a.kelas_id')
-            ->get();;
-        foreach ($data_mahasiswa as $value) {
-            $add = [];
-            $pembayaran = PembayaranPendaftaran::where('id_user', $value->user_id)->get();
-            if (count($pembayaran) > 0) {
-                foreach ($pembayaran as $key) {
-                    $add['pembayaran'][] = $key->toarray();
+            ->get();
+        if (count($data_mahasiswa) > 0) {
+
+            foreach ($data_mahasiswa as $value) {
+                $add = [];
+                $pembayaran = PembayaranPendaftaran::where('id_user', $value->user_id)->get();
+                if (count($pembayaran) > 0) {
+                    foreach ($pembayaran as $key) {
+                        $add['pembayaran'][] = $key->toarray();
+                    }
+                    $cetak[] = array_merge($value->toArray(), $add);
+                } else {
+                    $cetak[] = array_merge($value->toArray(), ['pembayaran' => []]);
                 }
-                $cetak[] = array_merge($value->toArray(), $add);
-            } else {
-                $cetak[] = array_merge($value->toArray(), ['pembayaran' => []]);
             }
+        } else {
+            return redirect()->to('home');
+            // dd('anda bukan agen');
         }
         // dd($cetak);
         return view('admisi::biodata.admin-mahasiswa', compact('cetak'));

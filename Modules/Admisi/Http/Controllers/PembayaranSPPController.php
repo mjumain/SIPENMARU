@@ -107,17 +107,17 @@ class PembayaranSPPController extends Controller
      */
     public function store(Request $request)
     {
-        // $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
-        // if (is_null($query)) {
-        //     $biodata = DataHelper::cekBiodata(auth()->user()->id);
-        //     if (is_null($biodata)) {
-        //         return redirect()->route('admisi-tes-online.index');
-        //     } else {
-        //         toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
-        //         return redirect()->route('admisi-tes-online.index');
-        //     }
-        // }
-        //
+        $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
+        if (is_null($query)) {
+            $biodata = DataHelper::cekBiodata(auth()->user()->id);
+            if (is_null($biodata)) {
+                return redirect()->route('admisi-tes-online.index');
+            } else {
+                toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
+                return redirect()->route('admisi-tes-online.index');
+            }
+        }
+        
 
         $data_pendaftaran = Biodata::where('user_id', auth()->user()->id)
             ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
@@ -222,10 +222,9 @@ class PembayaranSPPController extends Controller
                     'waktu_kadaluarsa'      => Carbon::now()->addDays(3)->format('Y-m-d') . ' 23.59.59',
                 ]
             );
-
             return redirect()->to('admisi-pembayaran-spp');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
         }
     }
 

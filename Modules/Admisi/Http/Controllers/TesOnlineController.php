@@ -55,7 +55,6 @@ class TesOnlineController extends Controller
                     // dd($hasilcbt);
                     if (!empty($hasilcbt->nilai)) {
                         if ($hasilcbt->nilai >= 30) {
-                            // dd('anda lulus');
                             return view('admisi::cbt.lulus');
                         } else {
                             return view('admisi::cbt.tidaklulus');
