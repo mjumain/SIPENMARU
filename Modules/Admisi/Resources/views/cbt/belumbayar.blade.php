@@ -104,11 +104,11 @@
 
                         <div class="row no-print">
                             <div class="col-12">
-                                <a href="invoice-print.html" rel="noopener" target="_blank"
+                                {{-- <a href="invoice-print.html" rel="noopener" target="_blank"
                                     class="btn btn-sm btn-default float-right"><i class="fas fa-print"></i> Print</a>
                                 <button type="button" class="btn btn-sm btn-primary float-right" style="margin-right: 5px">
                                     <i class="fas fa-download"></i> Generate PDF
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>
