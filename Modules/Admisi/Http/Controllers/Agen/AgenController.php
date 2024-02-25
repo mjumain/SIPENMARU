@@ -37,7 +37,6 @@ class AgenController extends Controller
                     ]);
                     // dd('kode referral kosong');
                 } else {
-
                     $datas = Biodata::where('refferal', $agen->kode_referral)
                         ->join('prodi_has_kelas_jalur_pendaftarans as a', 'a.id', 'has_prodi_kelas_jalur')
                         ->join('jalur_pendaftarans as b', 'b.id', 'a.jalur_pendaftaran_id')
@@ -60,12 +59,13 @@ class AgenController extends Controller
                 }
             }
         } else {
+            // dd('anda bukan agen');
             $kode_referral = random_int(100000, 999999);
             Agen::insert([
                 'user_id' => auth()->user()->id,
                 'kode_referral' => $kode_referral,
             ]);
-            // dd('anda bukan agen');
+            return redirect()->to('admin-agen-dashboard');
         }
     }
 
@@ -82,10 +82,19 @@ class AgenController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), ['nik' => ['required', 'unique:mahasiswas,nik'],], ['nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar',]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nik' => ['required', 'unique:mahasiswas,nik'],
+            ],
+            [
+                'nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar',
+                'nik.required' => 'Nomor Induk Kependudukan (NIK) harus diisi',
+            ]
+        );
 
         if ($validator->fails()) {
-            return back()->withInput()->withErrors($validator)->with('error', 'Periksa kembali biodata anda');
+            return back()->withInput()->withErrors($validator)->with('error', 'NIK anda sudah digunakan');
         }
 
         $agen = Agen::where('user_id', auth()->user()->id)->first();

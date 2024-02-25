@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Modules\Admisi\Entities\Biodata;
+use Modules\Admisi\Entities\TesOnline;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -152,6 +155,32 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = User::findorfail($id);
+
+            // dd($user->email);
+
+            $user->roles()->detach();
+            $user->delete();
+
+            $biodata = Biodata::where('user_id', $id)->first();
+            if (!is_null($biodata)) {
+                // dd($biodata->id);
+                Storage::delete('public/kk/' . $biodata->kk);
+                Storage::delete('public/kk/' . $biodata->ktp);
+                Storage::delete('public/kk/' . $biodata->ijazah);
+                Storage::delete('public/kk/' . $biodata->pendukung);
+                Biodata::where('user_id', $id)->delete();
+            }
+
+            TesOnline::where('user_name', $user->email)->delete();
+
+            toastr()->success('Pengguna berhasil dihapus');
+            return redirect()->route('manage-user.index');
+        } catch (\Throwable $th) {
+            dd($th);
+            toastr()->warning('Terdapat masalah diserver');
+            return redirect()->route('manage-user.index');
+        }
     }
 }
