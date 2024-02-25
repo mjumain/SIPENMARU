@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Modules\Admisi\Entities\Agen;
 use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\TesOnline;
 use Spatie\Permission\Models\Role;
@@ -157,9 +158,6 @@ class UserController extends Controller
     {
         try {
             $user = User::findorfail($id);
-
-            // dd($user->email);
-
             $user->roles()->detach();
             $user->delete();
 
@@ -174,11 +172,12 @@ class UserController extends Controller
             }
 
             TesOnline::where('user_name', $user->email)->delete();
+            Agen::where('user_id', $id)->delete();
 
             toastr()->success('Pengguna berhasil dihapus');
             return redirect()->route('manage-user.index');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             toastr()->warning('Terdapat masalah diserver');
             return redirect()->route('manage-user.index');
         }
