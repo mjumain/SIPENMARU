@@ -71,8 +71,6 @@ class PembayaranSPPController extends Controller
                     $npm = substr($biodata->nama_prodi, 0, 2) . '24' . substr($biodata->prodi_id, 0, 2)  .  $nomorurutbaru;
 
                     // dd($npm);
-
-
                     try {
                         Biodata::where('user_id', auth()->user()->id)
                             ->update([

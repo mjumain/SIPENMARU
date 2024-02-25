@@ -47,7 +47,7 @@ class AgenController extends Controller
                         foreach ($datas as $key => $value) {
                             $cek_data = PembayaranPendaftaran::where('id_user', $value->user_id)->first();
                             if (!is_null($cek_data)) {
-                                if ($cek_data->status_pembayaran == 'terbayar') {
+                                if (strtolower($cek_data->status_pembayaran) == 'terbayar') {
                                     $cek_pembayaran_pendaftaran[] = $value;
                                 }
                             }
