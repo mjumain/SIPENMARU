@@ -10,6 +10,7 @@ use Modules\Admisi\Http\Controllers\Admin\KelasAdmisiController;
 use Modules\Admisi\Http\Controllers\Admin\ProdiAdmisiController;
 use Modules\Admisi\Http\Controllers\AdmisiController;
 use Modules\Admisi\Http\Controllers\Agen\AgenController;
+use Modules\Admisi\Http\Controllers\Agen\RegisterAgenController;
 use Modules\Admisi\Http\Controllers\BiodataController;
 use Modules\Admisi\Http\Controllers\PembayaranSPPController;
 use Modules\Admisi\Http\Controllers\ProdiHasController;
@@ -26,6 +27,8 @@ use Modules\Admisi\Http\Controllers\TesOnlineController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('register-agen', RegisterAgenController::class)->only('index', 'store');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('admisi-dashboard', AdmisiController::class);
