@@ -26,7 +26,7 @@ class PembayaranSPPController extends Controller
     public function index()
     {
         $query = DataHelper::cekPembayaranPendaftaran(auth()->user()->id);
-        if (is_null($query)) {
+        if (is_null($query) || is_null($query->status_pembayaran)) {
             $biodata = DataHelper::cekBiodata(auth()->user()->id);
             if (is_null($biodata)) {
                 return redirect()->route('admisi-tes-online.index');
@@ -34,9 +34,6 @@ class PembayaranSPPController extends Controller
                 toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
                 return redirect()->route('admisi-tes-online.index');
             }
-        }
-        elseif(!is_null($query->status_pembayaran)) {
-            dd($query);
         }
 
         $cek_spp = PembayaranSPP::where(function ($query) {
@@ -119,7 +116,7 @@ class PembayaranSPPController extends Controller
                 toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
                 return redirect()->route('admisi-tes-online.index');
             }
-        }        
+        }
 
         $data_pendaftaran = Biodata::where('user_id', auth()->user()->id)
             ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
