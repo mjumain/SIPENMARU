@@ -64,7 +64,7 @@
                                                 {{ $item->deskripsi }}
                                                 @endforeach
                                             </td>
-                                            <td class="col-md-2">{{ strtolower($cek_spp->status_pembayaran) == 'terbayar' ? 'Belum Bayar' : 'Sudah Bayar' }}</td>
+                                            <td class="col-md-2">{{ strtolower($cek_spp->status_pembayaran) == 'terbayar' ? 'Sudah Bayar' : 'Belum Bayar' }}</td>
                                             <td class="col-md-3 text-right">
                                                 @foreach (json_decode($cek_spp->rincian) as $item)
                                                     {{ DataHelper::rupiah($item->nominal) }}
@@ -72,7 +72,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" class="text-right">Total Bayar:</th>
+                                            <th colspan="3" class="text-right">Total Bayar:</th>
                                             <td class="text-right">
                                                 @foreach (json_decode($cek_spp->rincian) as $item)
                                                     {{ DataHelper::rupiah($item->nominal) }}
