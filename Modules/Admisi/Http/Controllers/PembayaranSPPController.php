@@ -117,6 +117,9 @@ class PembayaranSPPController extends Controller
                 return redirect()->route('admisi-tes-online.index');
             }
         }
+        elseif(!is_null($query->status_pembayaran)) {
+            dd($query);
+        }
         
 
         $data_pendaftaran = Biodata::where('user_id', auth()->user()->id)
