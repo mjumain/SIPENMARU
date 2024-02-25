@@ -38,12 +38,12 @@
                                         @foreach ($pembayaran as $item)
                                             <tr>
                                                 <td class="col-md-1">{{ $loop->iteration }}</td>
-                                                <td class="col-md-8">
+                                                <td class="col-md-6">
                                                     @foreach (json_decode($item->rincian, true) as $key)
                                                         {{ $key['deskripsi'] }}
                                                     @endforeach
                                                 </td>
-                                                <td>{{ strtolower($item->status_pembayaran) == 'terbayar' ? 'Sudah Bayar' : 'Belum Bayar' }}
+                                                <td class="col-md-2">{{ strtolower($item->status_pembayaran) == 'terbayar' ? 'Sudah Bayar' : 'Belum Bayar' }}
                                                 </td>
                                                 <td class="col-md-3 text-right">
                                                     @foreach (json_decode($item->rincian, true) as $key)
