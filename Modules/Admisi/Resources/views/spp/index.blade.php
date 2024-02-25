@@ -52,7 +52,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Rincian</th>
-                                            <th>Keterangan</th>
+                                            <th>Status</th>
                                             <th class="text-right">Jumlah Bayar</th>
                                         </tr>
                                     </thead>

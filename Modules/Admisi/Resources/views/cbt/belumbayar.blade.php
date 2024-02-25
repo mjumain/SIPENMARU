@@ -52,16 +52,20 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Rincian</th>
+                                            <th>Status</th>
                                             <th class="text-right">Jumlah Bayar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="col-md-1">1</td>
-                                            <td class="col-md-8">
+                                            <td class="col-md-6">
                                                 @foreach (json_decode($cek_pembayaran_pendaftaran->rincian) as $item)
                                                     {{ $item->deskripsi }}
                                                 @endforeach
+                                            </td>
+                                            <td class="col-md-2">
+                                                {{ strtolower($cek_pembayaran_pendaftaran->status_pembayaran) == 'terbayar' ? 'Sudah Bayar' : 'Belum Bayar' }}
                                             </td>
                                             <td class="col-md-3 text-right">
                                                 @foreach (json_decode($cek_pembayaran_pendaftaran->rincian) as $item)
@@ -70,7 +74,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" class="text-right">Total Bayar:</th>
+                                            <th colspan="3" class="text-right">Total Bayar:</th>
                                             <td class="text-right">
                                                 @foreach (json_decode($cek_pembayaran_pendaftaran->rincian) as $item)
                                                     {{ DataHelper::rupiah($item->nominal) }}

@@ -43,7 +43,7 @@
                                                         {{ $key['deskripsi'] }}
                                                     @endforeach
                                                 </td>
-                                                <td>{{ strtolower($item->status_pembayaran) == 'terbayar' ? 'Lunas' : 'Belum Lunas' }}
+                                                <td>{{ strtolower($item->status_pembayaran) == 'terbayar' ? 'Sudah Bayar' : 'Belum Bayar' }}
                                                 </td>
                                                 <td class="col-md-3 text-right">
                                                     @foreach (json_decode($item->rincian, true) as $key)
