@@ -35,6 +35,9 @@ class PembayaranSPPController extends Controller
                 return redirect()->route('admisi-tes-online.index');
             }
         }
+        elseif(!is_null($query->status_pembayaran)) {
+            dd($query);
+        }
 
         $cek_spp = PembayaranSPP::where(function ($query) {
             $query->where('nomor_invoice', 'like', '%' . '/SPP/' . '%');
@@ -116,11 +119,7 @@ class PembayaranSPPController extends Controller
                 toastr()->warning('Silahkan lakukan pembayaran pendaftaran dahulu');
                 return redirect()->route('admisi-tes-online.index');
             }
-        }
-        elseif(!is_null($query->status_pembayaran)) {
-            dd($query);
-        }
-        
+        }        
 
         $data_pendaftaran = Biodata::where('user_id', auth()->user()->id)
             ->join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
