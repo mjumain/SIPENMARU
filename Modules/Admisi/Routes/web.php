@@ -49,5 +49,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin-admisi-kelas', KelasAdmisiController::class);
     Route::resource('admin-admisi-prodi', ProdiAdmisiController::class);
     Route::resource('admin-admisi-prokeja', HasPKJAdminAdmisiController::class);
-    Route::resource('admin-admisi-data-mahasiswa', DataMahasiswaController::class);
 });
+Route::resource('admin-admisi-data-mahasiswa', DataMahasiswaController::class);

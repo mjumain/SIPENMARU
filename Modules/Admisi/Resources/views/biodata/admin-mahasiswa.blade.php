@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h5 class="m-0">Formulir Pendaftaran Calon Mahasiswa Baru</h5>
+                            <h5 class="m-0">Data Calon Mahasiswa Baru</h5>
                         </div>
                         <div class="card-body table-responsive">
                             <table class="table ">

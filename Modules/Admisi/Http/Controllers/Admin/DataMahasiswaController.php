@@ -45,8 +45,7 @@ class DataMahasiswaController extends Controller
                 }
             }
         } else {
-            return redirect()->to('home');
-            // dd('anda bukan agen');
+            $cetak = [];
         }
         // dd($cetak);
         return view('admisi::biodata.admin-mahasiswa', compact('cetak'));

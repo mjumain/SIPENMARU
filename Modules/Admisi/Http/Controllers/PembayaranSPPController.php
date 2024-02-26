@@ -79,9 +79,10 @@ class PembayaranSPPController extends Controller
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
-                    return view('admisi::spp.npm');;
+
+                    return view('admisi::spp.npm', compact('biodata'));
                 } else {
-                    return view('admisi::spp.npm');;
+                    return view('admisi::spp.npm', compact('biodata'));
                 }
             } else {
                 $biodata = Biodata::where('user_id', auth()->user()->id)->first();

@@ -10,8 +10,7 @@ class MenuHelper
 {
     public static function Menu()
     {
-        $menu_roles = DB::table('role_has_menus')->where('role_id', auth()->user()->roles->pluck("id")->first())->get();
-
+        $menu_roles = DB::table('role_has_menus')->whereIn('role_id', auth()->user()->roles->pluck("id"))->get();
         if (count($menu_roles) > 0) {
             foreach ($menu_roles as  $value) {
                 $array_menu_roles[] = $value->menu_id;
@@ -35,6 +34,8 @@ class MenuHelper
             })
             ->whereIn('id', $array_menu_roles)
             ->get();
+
+        // dd($menus);
         return json_encode($menus);
     }
 }
