@@ -89,7 +89,21 @@ class PembayaranSPPController extends Controller
                 return view('admisi::spp.index', compact('cek_spp', 'biodata'));
             }
         } else {
-            return view('admisi::spp.create');
+            $hasilcbt = DataHelper::cekHasilCBT(auth()->user()->emai);
+
+            // $data_pendaftaran = Biodata::join('prodi_has_kelas_jalur_pendaftarans as b', 'b.id', 'has_prodi_kelas_jalur')
+            //     ->where('user_id', auth()->user()->id)
+            //     ->first();
+            // // dd($data_pendaftaran);
+
+            // // dd($query);
+
+            if (is_null($hasilcbt->nilai)) {
+                toastr()->warning('Anda belum melakukan tes CBT, Silahkan lakukan tes CBT terlebih dahulu');
+                return redirect()->route('admisi-tes-online.index');
+            } else {
+                return view('admisi::spp.create');
+            }
         }
     }
 

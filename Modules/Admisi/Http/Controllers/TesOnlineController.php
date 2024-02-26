@@ -13,6 +13,7 @@ use Modules\Admisi\Entities\Biodata;
 use Modules\Admisi\Entities\PembayaranPendaftaran;
 use Modules\Admisi\Entities\TesOnline;
 use Illuminate\Support\Str;
+use Symfony\Component\Mime\Part\DataPart;
 
 class TesOnlineController extends Controller
 {
@@ -42,17 +43,11 @@ class TesOnlineController extends Controller
             } elseif (strtolower($cek_pembayaran_pendaftaran->status_pembayaran) == 'terbayar') {
 
                 $cek_akun_cbt = TesOnline::where('user_name', auth()->user()->email)->first();
-                // dd($cek_akun_cbt);
 
                 if ($cek_akun_cbt) {
-                    $hasilcbt = DB::connection('cbt')->table('cbt_tes_soal as a')
-                        ->select(DB::raw("SUM(tessoal_nilai) as nilai"))
-                        ->join('cbt_tes_user as b', 'a.tessoal_tesuser_id', '=', 'b.tesuser_tes_id')
-                        ->join('cbt_user as c', 'b.tesuser_user_id', '=', 'c.user_id')
-                        ->where('c.user_name', '=', auth()->user()->email)
-                        // ->where('c.user_name', '=', '1502172605000001')
-                        ->first();
-                    // dd($hasilcbt);
+
+                    $hasilcbt = DataHelper::cekHasilCBT(auth()->user()->emai);
+                    
                     if (!empty($hasilcbt->nilai)) {
                         if ($hasilcbt->nilai >= 30) {
                             return view('admisi::cbt.lulus');
