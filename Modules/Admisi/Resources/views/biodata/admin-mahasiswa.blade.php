@@ -34,8 +34,15 @@
                                                     @foreach ($item['pembayaran'] as $value)
                                                         <p>
                                                             @php
-                                                                echo Str::substr($value['nomor_invoice'], 4, 3) . ' = ' . $value['total_nominal'] . ' ' . $value['status_pembayaran'] ;
+                                                                echo Str::substr($value['nomor_invoice'], 4, 3) .
+                                                                    ' = ' .
+                                                                    DataHelper::rupiah($value['total_nominal']);
+
                                                             @endphp
+                                                            <span style="align:right">
+                                                                {{ $value['status_pembayaran'] == null ? 'Belum Bayar' : 'Sudah Bayar' }}
+                                                            </span>
+
                                                         </p>
                                                     @endforeach
                                                 @else
