@@ -14,10 +14,10 @@ class DataMahasiswaController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:read_admin_admisi_data_mahasiswa')->only('index', 'show');
-        // $this->middleware('permission:create_admin_admisi_data_mahasiswa')->only('create', 'store');
-        // $this->middleware('permission:update_admin_admisi_data_mahasiswa')->only('edit', 'update');
-        // $this->middleware('permission:delete_admin_admisi_data_mahasiswa')->only('destroy');
+        $this->middleware('permission:read_admin_admisi_data_mahasiswa')->only('index', 'show');
+        $this->middleware('permission:create_admin_admisi_data_mahasiswa')->only('create', 'store');
+        $this->middleware('permission:update_admin_admisi_data_mahasiswa')->only('edit', 'update');
+        $this->middleware('permission:delete_admin_admisi_data_mahasiswa')->only('destroy');
     }
     /**
      * Display a listing of the resource.

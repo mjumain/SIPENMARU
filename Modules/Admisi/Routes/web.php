@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Modules\Admisi\Http\Controllers\Admin\DashboardAdminAdmisiController;
+use Modules\Admisi\Http\Controllers\Admin\DataAgenController;
 use Modules\Admisi\Http\Controllers\Admin\DataMahasiswaController;
 use Modules\Admisi\Http\Controllers\Admin\HasPKJAdminAdmisiController;
 use Modules\Admisi\Http\Controllers\Admin\JalurPenerimaanAdmisiController;
@@ -50,4 +51,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin-admisi-prodi', ProdiAdmisiController::class);
     Route::resource('admin-admisi-prokeja', HasPKJAdminAdmisiController::class);
     Route::resource('admin-admisi-data-mahasiswa', DataMahasiswaController::class);
+    Route::resource('admin-admisi-data-agen', DataAgenController::class);
 });

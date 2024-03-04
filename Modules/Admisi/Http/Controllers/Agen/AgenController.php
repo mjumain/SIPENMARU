@@ -85,16 +85,17 @@ class AgenController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'nik' => ['required', 'unique:mahasiswas,nik'],
+                'nik' => ['required', 'unique:mahasiswas,nik','min:14','alpha-num'],
             ],
             [
                 'nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar',
                 'nik.required' => 'Nomor Induk Kependudukan (NIK) harus diisi',
+                'nik.min' => 'Nomor Induk Kependudukan (NIK) minimal 14 angka',
             ]
         );
 
         if ($validator->fails()) {
-            return back()->withInput()->withErrors($validator)->with('error', 'NIK anda sudah digunakan');
+            return back()->withInput()->withErrors($validator)->with('error', 'Nomor Induk Kependudukan bermasalah');
         }
 
         $agen = Agen::where('user_id', auth()->user()->id)->first();
